@@ -1,0 +1,24 @@
+﻿@model SIR.TWhy
+
+@{
+    Layout = null;
+}
+
+<div class="twhy-editor">
+    
+        <label>Why?</label>
+        @Html.HiddenFor(m => m.Ordering)
+        @*@Html.TextAreaFor(m => m.Description)*@
+    <div class="form-horizontal">
+        <div class="col-md-4">
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @rows = 3 })
+        </div>
+    </div>
+        <div class="twhy-buttons">
+            <input type="button" value="Add" class="btn btn-primary btn-add-twhy" />
+            <input type="button" value="Delete" class="btn btn-danger btn-delete-twhy" />
+        </div>
+    </div>
+@*<div class="pull-left">*@
+
+@*</div>*@

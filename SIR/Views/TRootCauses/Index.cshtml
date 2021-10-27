@@ -1,0 +1,57 @@
+﻿@model IEnumerable<SIR.TRootCause>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TIncidentReporting.Shift)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RootCauseName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Verified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VerifiedNote)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TIncidentReporting.Shift)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <th>
+            @Html.DisplayFor(model => item.RootCauseName)
+        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.Verified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VerifiedNote)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RootCauseID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RootCauseID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RootCauseID })
+        </td>
+    </tr>
+}
+
+</table>

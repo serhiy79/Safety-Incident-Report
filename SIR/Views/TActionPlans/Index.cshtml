@@ -1,0 +1,136 @@
+﻿﻿@model IEnumerable<SIR.TActionPlan>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Action Plan</h2>
+
+@if (Model == null)
+{
+    using (Html.BeginForm())
+    {
+        if (ViewBag.RootCauses != null)
+        {
+            TIncidentReporting incident = (TIncidentReporting)ViewBag.Incident;
+            <h3>Choose Root Cause</h3>
+            @Html.ActionLink("<< Choose Different Incident", "Index")
+            <h4>
+                <b>Incident:</b> @incident.Date.ToShortDateString() at @incident.IncidentLocation &ndash; @incident.Description
+            </h4>
+
+            <table cellpadding="5" class="table">
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+                @{
+                    IEnumerable<TRootCause> rootCauses = (IEnumerable<TRootCause>)ViewBag.RootCauses;
+                    foreach (var r in rootCauses)
+                    {
+                        <tr>
+                            <td>@Html.RadioButton("rootCauseId", r.RootCauseID, new { })</td>
+                            <td>@r.RootCauseName</td>
+                            <td>@r.Description</td>
+                        </tr>
+                    }
+                }
+            </table>
+                    }
+
+                    if (ViewBag.Incidents != null)
+                    {
+                        <h3>Choose Incident</h3>
+                        <table cellpadding="5" class="table">
+                            <tr>
+                                <th></th>
+                                <th>Date</th>
+                                <th>Location</th>
+                                <th>Incident Type</th>
+                                <th>Department</th>
+                                <th>Position</th>
+                                <th>Description</th>
+                            </tr>
+                            @{
+                                IEnumerable<TIncidentReporting> incidents = (IEnumerable<TIncidentReporting>)ViewBag.Incidents;
+                                foreach (var i in incidents)
+                                {
+                                    <tr>
+                                        <td>@Html.RadioButton("incidentId", i.IncidentID, new { })</td>
+                                        <td>@i.Date.ToShortDateString()</td>
+                                        <td>@i.IncidentLocation</td>
+                                        <td>@i.IncidentType</td>
+                                        <td>@i.Department</td>
+                                        <td>@i.Position</td>
+                                        <td>@i.Description</td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                                }
+
+                                <input type="submit" value="Next" class="btn btn-primary" />
+                                    }
+                                }
+                                else
+                                {
+                                    TRootCause rootCause = (TRootCause)ViewBag.RootCause;
+                                    TIncidentReporting incident = rootCause.TIncidentReporting;
+                                    @Html.ActionLink("<< Choose Different Root Cause", "Index", new { incidentId = incident.IncidentID })
+                                    <h4>
+                                        <b>Incident:</b> @incident.Date.ToShortDateString() at @incident.IncidentLocation &ndash; @incident.Description
+                                        &raquo;
+                                        <b>Root Cause:</b> @rootCause.RootCauseName &ndash; @rootCause.Description
+                                    </h4>
+                                    <p>
+                                        @Html.ActionLink("Create New", "Create/" + rootCause.RootCauseID.ToString())
+                                    </p>
+                                        <table class="table">
+                                            <tr>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.TRootCause.Description)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.Owner)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.DeadLine)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.Status)
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.Description)
+                                                </th>
+                                                <th></th>
+                                            </tr>
+
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.TRootCause.Description)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Owner)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.DeadLine)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Status)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Description)
+                                                    </td>
+                                                    <td>
+                                                        @Html.ActionLink("Edit", "Edit", new { id = item.ActionPlanID }) |
+                                                        @Html.ActionLink("Details", "Details", new { id = item.ActionPlanID }) |
+                                                        @Html.ActionLink("Delete", "Delete", new { id = item.ActionPlanID })
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </table>
+                                }

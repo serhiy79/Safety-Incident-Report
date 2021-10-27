@@ -1,0 +1,154 @@
+﻿@model SIR.TIncidentReporting
+
+    @{
+        ViewBag.Title = "Details";
+    }
+
+    <h2>Details</h2>
+
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.TEmployee.FirstName)
+                @* @Html.DisplayNameFor(T1 => Model.Item1.TEmployee.FirstName)*@
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TEmployee.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Shift)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Shift)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Position)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Position)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ExpirienceMonth)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ExpirienceMonth)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IncidentLocation)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IncidentLocation)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Time)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Time)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Department)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Department)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Equipment)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Equipment)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.InjuryType)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.InjuryType)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IncidentType)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IncidentType)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstAid)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstAid)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Investigator)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Investigator)
+            </dd>
+
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.ImageName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ImageName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ImageData)
+                </dt>*@
+
+            @*<dd>
+                    @Html.Raw("<img style='width:300px; height:300px; float:right; margin: 200 200px 10px 0px;' src=\"data:image/jpeg;base64,"
+                                        + Convert.ToBase64String(Model.ImageData) + "\" />")
+                </dd>*@
+
+        </dl>
+        <p>
+            @Html.Raw("<img style='width:300px; height:300px; float:right; margin: -300px 300px 10px 10px;' src=\"data:image/jpeg;base64,"
+                                    + Convert.ToBase64String(Model.ImageData) + "\" />")
+        </p>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.IncidentID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+<div class="col-md-offset-9 col-md-10">
+    <a href='@Url.Action("SendEmail", "TIncidentReportings", new { id = Model.IncidentID })' class="btn btn-primary " role="button">Send Report</a>
+</div>

@@ -1,0 +1,182 @@
+﻿@model SIR.TRootCause
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>TRootCause</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div id="choose-incident" class="create-rca">
+            <p>Select an incident to perform Root Cause Analysis on:</p>
+
+            <table cellpadding="5" class="table">
+                <tr>
+                    <th></th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Incident Type</th>
+                    <th>Department</th>
+                    <th>Position</th>
+                </tr>
+                @{
+                    IEnumerable<TIncidentReporting> incidents = (IEnumerable<TIncidentReporting>)ViewBag.Incidents;
+                    foreach (var i in incidents)
+                    {
+                        <tr>
+                            <td>@Html.RadioButton("IncidentID", i.IncidentID, new { })</td>
+                            <td>@i.Date.ToShortDateString()</td>
+                            <td>@i.IncidentLocation</td>
+                            <td>@i.IncidentType</td>
+                            <td>@i.IncidentLocation</td>
+                            <td>@i.Department</td>
+                        </tr>
+                    }
+                }
+            </table>
+            <div class="create-rca-buttons">
+                <input type="button" value="Next" class="btn btn-primary btn-next" />
+            </div>
+        </div>
+
+        <div id="describe-root-cause" class="create-rca">
+            <p>Use the safety incident data to identify a problem which allowed the safety incident to occur. Describe the problem concisely below. (Max 200 characters)</p>
+
+            @*@Html.TextAreaFor(m => m.Description, new { style = "display: block;" })*@
+           @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @rows = 3 })
+            <div class="create-rca-buttons">
+                <input type="button" value="Back" class="btn btn-primary btn-back" />
+                <input type="button" value="Next" class="btn btn-primary btn-next" />
+            </div>
+        </div>
+
+        <div id="edit-why" class="create-rca">
+            <p>Use the 5 Why worksheet below.</p>
+
+            <p>You identified a problem. Now, addressing that problem, ask: "Why?". Write down the answer in the first textbox below.</p>
+
+            <p>Ask "Why?" to each of your answers. You may need to repeat this process more or less times than 5 until you have identified the root cause of the safety incident.</p>
+
+            <span id="rca-description"></span>
+
+            @Html.EditorFor(m => m.TWhies)
+           
+            <div class="create-rca-buttons">
+                <input type="button" value="Back" class="btn btn-primary btn-back" />
+                <input type="button" value="Next" class="btn btn-primary btn-next" />
+            </div>
+        </div>
+
+        <div id="verify-rca" class="create-rca">
+            <p>Please choose the best classification for the Root Cause you identified, and verify why.</p>
+
+            <div class="form-group">
+                @{IEnumerable<SelectListItem> rootCauseNames = new List<SelectListItem>(){
+                    new SelectListItem { Value="Inappropriate tool or material", Text = "Inappropriate tool or material" },
+                    new SelectListItem {Value="Safe work practice not followed", Text = "Safe work practice not followed" },
+                    new SelectListItem {Value="Equipment failure", Text = "Equipment failure" },
+                    new SelectListItem {Value="Poorly designed equipment", Text = "Poorly designed equipment" },
+                    new SelectListItem {Value="Inadequate house keeping", Text = "Inadequate house keeping" },
+                    new SelectListItem {Value="Inadequate training", Text = "Inadequate training" },
+                    new SelectListItem {Value="Environmental", Text= "Environmental" },
+                    new SelectListItem {Value="Poorly designed safety practice", Text= "Poorly designed safety practice" }
+
+                                };
+                }
+
+                @Html.LabelFor(m => m.RootCauseName, "Root Cause Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.RootCauseName, rootCauseNames, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.RootCauseName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @Html.LabelFor(m => m.Verified)
+            @Html.CheckBoxFor(m => m.Verified)
+
+            @*@Html.TextAreaFor(m => m.VerifiedNote, new { style = "display: block;" })*@
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @rows = 2 })
+            <div class="create-rca-buttons">
+                <input type="button" value="Back" class="btn btn-primary btn-back" />
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+
+    </div>
+                }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@*@model SIR.TRootCause
+
+    @{
+        ViewBag.Title = "Edit";
+    }
+
+    <h2>Edit</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>TRootCause</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.RootCauseID)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IncidentID, "IncidentID", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("IncidentID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IncidentID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Verified, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Verified)
+                        @Html.ValidationMessageFor(model => model.Verified, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.VerifiedNote, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.VerifiedNote, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.VerifiedNote, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@

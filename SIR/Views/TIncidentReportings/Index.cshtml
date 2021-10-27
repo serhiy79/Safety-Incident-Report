@@ -1,0 +1,257 @@
+﻿@model IEnumerable<SIR.TIncidentReporting>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Incident Reports</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    @*<div class="container">
+        <div class="col-sm-6" style="height:130px;">
+            <div class="form-group">
+                <div class='input-group date' id='datetimepicker9'>
+                    Start Date:  <input type='text' name="startDate" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar">
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+       
+    </div>*@
+    <div class="form-group">
+        <div>
+           
+           Start Date: <input type="date" name="startDate" class="form-control-date " />
+            End Date: <input type="date" name="endDate" class="form-control-date " />
+            <br />
+            <br />
+            Location: <select name="location" class="form-control-ddl">
+                <option></option>
+                <option>Cincinnati</option>
+                <option>Lexington</option>
+                <option>Columbus</option>
+                <option>Dallas</option>
+                <option>Greensboro</option>
+                <option>Atlanta</option>
+            </select>
+            Injury Type: <select name="injuryType" class="form-control-ddl">
+                <option></option>
+                <option>Close call</option>
+                <option>Illness</option>
+                <option>Injury</option>
+                <option>Near fatal</option>
+                <option>Fatality</option>
+            </select>
+            Department: <select name="department" class="form-control-ddl">
+                <option></option>
+                <option>Family Care</option>
+                <option>Baby Care</option>
+                <option>Shipping</option>
+                <option>Receiving</option>
+                <option>Warehouse</option>
+                <option>Packaging</option>
+                <option>Manufacturing</option>
+                <option>Lab</option>
+                <option>Maintenance A</option>
+                <option>Mainttenance B</option>
+                <option>Waste Stream</option>
+                <option>GENESIS</option>
+            </select>
+            Position: <select name="position" class="form-control-ddl">
+                <option></option>
+                <option>Shipper</option>
+                <option>Receiver</option>
+                <option>Forklift driver</option>
+                <option>Picker</option>
+                <option>Production 1</option>
+                <option>Production 2</option>
+                <option>Material handler</option>
+                <option>Mechanic</option>
+                <option>Lead</option>
+                <option>Supervisor</option>
+                <option>Lab specialist 1</option>
+                <option>Lab specialist 2</option>
+            </select>
+        </div>
+        <br />
+        <input type="submit" class="btn btn-primary" value="Search" />
+           
+    </div>
+}
+<table class="table">
+    <tr>
+        <th>
+            Date
+        </th>
+        <th>
+            Location
+        </th>
+        <th>
+            Injury Type
+        </th>
+        <th>
+            Department
+        </th>
+        <th>
+            Position
+        </th>
+        <th>
+            Investigator
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Date.ToShortDateString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IncidentLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InjuryType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Investigator)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IncidentID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IncidentID }) |
+                   @* @Html.ActionLink("Delete", "Delete", new { id=item.IncidentID })*@
+                @Html.ActionLink("Back to List", "Index")
+                @*@Html.ActionLink("Send Report", "SendEmail")*@
+            </td>
+        </tr>
+    }
+</table>
+@*<div class="col-md-offset-9 col-md-10">
+    <a href='@Url.Action("SendEmail", "TIncidentReportings")' class="btn btn-primary " role="button">Send Report</a>
+</div>*@
+
+@*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TEmployee.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shift)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Position)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpirienceMonth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IncidentLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Equipment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InjuryType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IncidentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstAid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Investigator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageData)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TEmployee.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Shift)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpirienceMonth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IncidentLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InjuryType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IncidentType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstAid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Investigator)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageName)
+            </td>
+            <td>
+                @Html.Raw("<img style='width:80px; height:80px;' src=\"data:image/jpeg;base64,"
+                                    + Convert.ToBase64String(item.ImageData) + "\" />")
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.IncidentID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.IncidentID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.IncidentID })
+            </td>
+        </tr>
+    }
+
+    </table>*@

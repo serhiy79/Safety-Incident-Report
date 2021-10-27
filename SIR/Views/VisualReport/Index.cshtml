@@ -1,0 +1,84 @@
+﻿@model IEnumerable<SIR.TIncidentReporting>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Visual Reports</h2>
+
+@using (Html.BeginForm("Graph", "Visualreport"))
+{
+    <div class="form-group">
+        <div>
+            Location: <select id="location" name="location" class="form-control-ddl">
+                <option></option>
+                <option>Cincinnati</option>
+                <option>Lexington</option>
+                <option>Columbus</option>
+                <option>Dallas</option>
+                <option>Greensboro</option>
+                <option>Atlanta</option>
+            </select>
+
+            Department: <select id="department" name="department" class="form-control-ddl">
+                <option></option>
+                <option>Family Care</option>
+                <option>Baby Care</option>
+                <option>Shipping</option>
+                <option>Receiving</option>
+                <option>Warehouse</option>
+                <option>Packaging</option>
+                <option>Manufacturing</option>
+                <option>Lab</option>
+                <option>Maintenance A</option>
+                <option>Mainttenance B</option>
+                <option>Waste Stream</option>
+                <option>GENESIS</option>
+            </select>
+
+            <div class="pull-right">
+                <input type="submit" class="btn btn-success"   onclick="reloadImage('Chart')"value="Load Incident Chart" />
+               @* <input type="submit" class="btn btn-primary" onclick="document.location.reload(true)" value="Load Incident Chart" />*@
+                <a href='@Url.Action("GetPdf", "VisualReport")' class="btn btn-primary " role="button">Export Chart</a>
+            </div>
+         </div>
+    </div>
+    
+    <div>
+        <img src="~/Content/Chart.png" id="img" />
+    </div>
+    <br />
+}
+
+@using (Html.BeginForm("Graph1", "Visualreport"))
+{
+    <div class="form-group">
+        <div>
+            Root Cause: <select id="rca" name="rca" class="form-control-ddl">
+                <option></option>
+                <option>Safe work practice not followed</option>
+                <option>Inappropriate tool or material</option>
+                <option>Equipment failure</option>
+                <option>Poorly designed equipment</option>
+                <option>Inadequate house keeping</option>
+                <option>Inadequate training</option>
+                <option>Environmental</option>
+                <option>Poorly designed safety practice</option>
+            </select>
+            <div class="pull-right">
+                <input type="submit" class="btn btn-success"  value="Load RCA Chart" />
+                <a href='@Url.Action("GetPdf1", "VisualReport")' class="btn btn-primary" role="button">Export Chart</a>
+            </div> 
+        </div>
+    </div>
+    
+    <div>
+        <img src="~/Content/Chart1.png" id="img1"  />
+        @*<img src=@Url.Content("~/Content/Chart1.png")/>*@
+    </div>
+}
+
+<script>
+    $("#img").attr("src", "../Content/Chart.png?timestamp=" + new Date().getTime());
+    $("#img1").attr("src", "../Content/Chart1.png?timestamp=" + new Date().getTime());
+</script>
